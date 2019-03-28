@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon --exec 'mocha --recursive -R min' -L"
+    "test": "nodemon --exec 'mocha --timeout 30000 --recursive -R min' -L"
   },
   "keywords": [],
   "author": "",
