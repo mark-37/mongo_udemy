@@ -32,6 +32,29 @@ module.exports = {
             .then( driver => res.status(204).send(driver))
             .catch(next);
 
+    },
+
+    index(req, res, next) {
+
+        const { lng, lat } = req.query;
+        console.log(lng);
+        // Driver.geoNear(
+        //     { type: 'Point', coordinates: [lng, lat] },
+        //     { spherical: true, maxDistance: 200000 }
+        // )
+        Driver.aggregate(
+            [{
+                $geoNear: {
+                    near : { type:'Point', coordinates:[parseFloat(lng), parseFloat(lat)]},
+                    spherical: true,
+                    maxdistance: 200000,
+                    distanceField: 'dist.calculated'
+                }
+            }
+            ])
+        .then( drivers => res.send(drivers) )
+        .catch(next);
+
     }
 
 }
